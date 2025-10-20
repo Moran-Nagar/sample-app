@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: dev-container
-        image: <todo>
+        image:  ${_REGION}-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild-dev:${_VERSION}
         ports:
         - containerPort: 8080
