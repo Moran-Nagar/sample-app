@@ -21,8 +21,15 @@ steps:
         'push',
         '${_REGION}-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild-dev:${_VERSION}'
       ]
+  # 👉 Step 4: Update image in deployment.yaml before applying
+  - name: 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        sed -i "s#IMAGE_PLACEHOLDER#${_REGION}-docker.pkg.dev/${PROJECT_ID}/my-repository/hello-cloudbuild-dev:${_VERSION}#g" dev/deployment.yaml
 
-  # Step 4: Deploy to the 'dev' namespace in GKE
+  # Step 5: Deploy to the 'dev' namespace in GKE
   - name: 'gcr.io/cloud-builders/kubectl'
     id: 'Deploy'
     args: ['-n', 'dev', 'apply', '-f', 'dev/deployment.yaml']
