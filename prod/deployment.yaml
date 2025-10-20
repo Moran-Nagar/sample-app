@@ -11,9 +11,9 @@ spec:
     metadata:
       labels:
         app: production-app
-    spec:
+   spec:
       containers:
       - name: production-container
-        image: <todo>
+        image:  IMAGE_PLACEHOLDER   # 👈 זה placeholder ש־Cloud Build ישנה אוטומטית
         ports:
         - containerPort: 8080
