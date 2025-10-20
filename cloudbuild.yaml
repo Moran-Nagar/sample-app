@@ -15,7 +15,15 @@ steps:
     id: 'Push Docker image'
     args: ['push', '${_REGION}-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:${_VERSION}']
 
-  # Step 4: Apply the production deployment YAML file to the production namespace
+# 👉 Step 4: Update image in deployment.yaml before applying
+  - name: 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        sed -i "s#IMAGE_PLACEHOLDER#${_REGION}-docker.pkg.dev/${PROJECT_ID}/my-repository/hello-cloudbuild:${_VERSION}#g" prod/deployment.yaml
+
+  # Step 5: Apply the production deployment YAML file to the production namespace
   - name: 'gcr.io/cloud-builders/kubectl'
     id: 'Deploy'
     args: ['-n', 'prod', 'apply', '-f', 'prod/deployment.yaml']
