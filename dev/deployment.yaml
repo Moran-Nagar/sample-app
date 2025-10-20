@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: dev-container
-        image:  ${_REGION}-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild-dev:${_VERSION}
+        image:  IMAGE_PLACEHOLDER   # 👈 זה placeholder ש־Cloud Build ישנה אוטומטית
         ports:
         - containerPort: 8080
